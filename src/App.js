@@ -1,24 +1,27 @@
-import React from "react";
+import React from "react"
+import AddToDo from "./components/AddToDo"
 import "./styles.css";
 
-export default class App extends React.Component {
+export default class Main extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       todoArr: [],
       todo: "",
-      id: ""
+      id: "",
+      //finished: false
     };
   }
 
   // Takes in new todo input and sets the temp value to the new input.
   handleChange = e => {
-    let date = new Date();
-    this.setState({
-      todo: e.target.value,
-      id: date
-    });
-  };
+    this.setState({ todo: e.target.value })
+  }
+
+  handleCheckbox = e => {
+    this.setState({ finished: !this.state.finished })
+  }
+
 
   // Handles the submit for the form.
   // Right now used for alerting and debugging.
@@ -26,35 +29,48 @@ export default class App extends React.Component {
   // Sets a new Object that takes in the new setStates of todo and id.
   // Concat() the object to the ToDoArr to later then loop through to display as <li />.
   handleSubmit = e => {
-    e.preventDefault();
+    e.preventDefault()
+    const newDate = new Date();
+
     let newTodos = {
       todo: this.state.todo,
-      id: this.state.id
-    };
-    this.setState({ todoArr: this.state.todoArr.concat(newTodos) });
+      id: newDate,
+      //finished: this.state.finished,
+    }
+    this.setState({ todoArr: this.state.todoArr.concat(newTodos) })
     // alert(this.state.id + " " + this.state.todo)
-  };
+  }
 
   render() {
     // Loops through the todoArr to display each as an <li /> element.
     let renderTodoList = this.state.todoArr.map(element => {
-      return <li key={element.id}> {element.todo} </li>;
-    });
+      return (
+        <div>
+          <li key={element.id} className="">
+            <input 
+              type="checkbox" 
+              className="m-2 p-2" 
+              //onClick={this.handleCheckbox}
+              //style={{color: this.state.finished ? "red" : "green"}}
+            />
+            {element.todo}
+            <i className="fa fa-times m-2"/>
+          </li> <br />
+          
+        </div>
+      )
+    })
 
     return (
       <div>
-        <h1 className="title"> To Do List </h1>
+        <h1 className=""> To Do List </h1>
+        <AddToDo handleSubmit={this.handleSubmit} handleChange={this.handleChange} />
 
-        <form className="form" onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            placeholder="Ex. Take Out Trash"
-            onChange={this.handleChange}
-          />
-          <button type="submit"> Add </button>
-        </form>
-
-        <ul> {renderTodoList} </ul>
+        <div className="">
+          <ul className=""> 
+            {renderTodoList}
+          </ul>
+        </div>
       </div>
     );
   }
