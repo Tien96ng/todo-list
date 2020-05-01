@@ -1,42 +1,61 @@
 body {
-  background-color: whitesmoke;
+  background: #FFF8DC;
+  display: flex;
+  text-align: center;
+  width: 500px;
+  margin: 0 auto;
+  font-family: Comic Sans MS, Comic Sans, cursive
 }
 
-.todo-list {
-  background-color: white;
-  margin: auto;
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 1px solid #efefef;
-  box-shadow:
-  /* The top layer shadow */ 0 1px 1px rgba(0, 0, 0, 0.15),
-    /* The second layer */ 0 10px 0 -5px #eee,
-    /* The second layer shadow */ 0 10px 1px -4px rgba(0, 0, 0, 0.15),
-    /* The third layer */ 0 20px 0 -10px #eee,
-    /* The third layer shadow */ 0 20px 1px -9px rgba(0, 0, 0, 0.15);
-  padding: 30px;
+.form {
+  padding-bottom: 20px;
 }
 
-.todo-item {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 30px 20px 0;
+.list-container {
+  text-align: left;
+}
+
+.text {
+  padding-left: 20px;
+}
+
+.close-button {
+  float: right;
+}
+
+.user-input {
+  box-sizing: border-box;
+  background-color: transparent;
+  padding: 0.7rem;
+  border-bottom-right-radius: 15px 3px;
+  border-bottom-left-radius:3px 15px;
+  border: solid 3px transparent;
+  border-bottom: dashed 3px black;
+  font-size: 1rem;
+  color: hsla(260, 2%, 25%, 0.7);
   width: 70%;
-  border-bottom: 1px solid #cecece;
-  font-family: Roboto, sans-serif;
-  font-weight: 100;
-  font-size: 15px;
-  color: #333333;
+  margin-bottom: 20px;
 }
 
-input[type="checkbox"] {
-  margin-right: 10px;
-  font-size: 30px;
+button {
+  padding: 5px 10px 5px 10px;
+  margin: 15px;
+  transform: rotate(5deg);
+  transform-origin: center;
+
+  border-radius: 5px;
+  box-shadow: 5px 5px;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background-color: lightgreen
 }
 
-input[type="checkbox"]:focus {
-  outline: 0;
+.main-container {
+  border: dashed 5px black;
+  padding: 30px;
+  margin-top: 25px;
+  box-shadow: 10px 5px;
+}
+
+.title {
+  margin: 10px;
 }

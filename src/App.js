@@ -61,7 +61,7 @@ export default class App extends Component {
     let renderTodos = this.state.todos.map((element) => {
       if (element.display) {
         return (
-          <span key={element.id}>
+          <div key={element.id} className='list-container'>
             <input
               type="checkbox"
               id={element.id}
@@ -70,31 +70,33 @@ export default class App extends Component {
               }
             />
             <label
+              className="text"
               for={element.id}
-              style={element.checked ? { 'textDecoration': "line-through" } : { color: "green" }}
+              style={element.checked ? { 
+                'textDecoration': 'line-through', 
+                'font-style': 'italic' } 
+                : {"fontSize": "120%"}
+                }
             >
               {element.text}
             </label>
             <i
-              className="fa fa-times-circle"
+              className='fa fa-times-circle close-button'
               onClick={() => this.handleRemove(element.id, element.checked, element.text, element.display)}
             />
             <br />
-          </span>
+          </div>
         );
       }
       
     });
 
     return (
-      <div>
-        <button onClick={() => alert(JSON.stringify(this.state.todos))}>
-          Todos
-        </button>
+      <div className="main-container">
+        <h1 className="title"> To Do List </h1>
 
-        <form onSubmit={this.handleSubmitForm}>
-          <input type="text" ref="newTodo" placeholder="Ex. Do Dishes.." />
-          <input type="reset" defaultValue="" />
+        <form onSubmit={this.handleSubmitForm} className="form">
+          <input className="user-input"  type="text" ref="newTodo" placeholder="Ex. Do Dishes.." required maxLength="20" />
           <button type="submit"> Add </button>
         </form>
 
@@ -105,6 +107,10 @@ export default class App extends Component {
 }
 
 /* NOTES:
+
+<button onClick={() => alert(JSON.stringify(this.state.todos))}>
+          Todos
+        </button>
 
 handleRemove = id => {
     // var citrus = fruits.slice(fruits.indexOf('Lemon'), fruits.indexOf('Lemon')+1)
