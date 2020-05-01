@@ -53,6 +53,10 @@ export default class App extends Component {
     });
   };
 
+  handleAdd = e => {
+
+  }
+
   render() {
     let renderTodos = this.state.todos.map((element) => {
       if (element.display) {
@@ -74,7 +78,7 @@ export default class App extends Component {
             <i
               className="fa fa-times-circle"
               onClick={() => this.handleRemove(element.id, element.checked, element.text, element.display)}
-            />{" "}
+            />
             <br />
           </span>
         );
@@ -90,6 +94,7 @@ export default class App extends Component {
 
         <form onSubmit={this.handleSubmitForm}>
           <input type="text" ref="newTodo" placeholder="Ex. Do Dishes.." />
+          <input type="reset" defaultValue="" />
           <button type="submit"> Add </button>
         </form>
 
