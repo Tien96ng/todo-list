@@ -1,82 +1,101 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 export default class App extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       todos: [],
       count: 0,
-    }
+    };
   }
 
   handleSubmitForm = (e) => {
-    //alert(this.refs.newTodo.value)
     let currentToDo = {
       id: this.state.count,
-      //id: new Date(),
       text: this.refs.newTodo.value,
-      checked: false
-    }
-    
+      checked: false,
+      display: true
+    };
+
     this.setState({
       todos: this.state.todos.concat(currentToDo),
-      count: this.state.count + 1
-    })
+      count: this.state.count + 1,
+    });
 
-    e.preventDefault()
-  }
+    e.preventDefault();
+  };
 
-  handleRemove = id => {
+  handleRemove = (oldId, oldChecked, oldText, oldDisplay) => {
+    this.setState((prevState) => {
+      let oldArr = prevState.todos;
+      oldArr[oldId] = {
+        id: oldId,
+        text: oldText,
+        checked: oldChecked,
+        display: !oldDisplay
+      };
 
-    let newArr = this.state.todos.filter(element => element.id !== id) 
-    //alert(JSON.stringify(newArr))
-    this.setState({ todos: newArr })
-  }
+      return { todos: oldArr };
+    });
+  };
 
-  handleCheckbox = (oldId, oldChecked, oldText) => {
+  handleCheckbox = (oldId, oldChecked, oldText, oldDisplay) => {
+    this.setState((prevState) => {
+      let oldArr = prevState.todos;
+      oldArr[oldId] = {
+        id: oldId,
+        text: oldText,
+        checked: !oldChecked,
+        display: oldDisplay
+      };
 
-    if (oldId) {
-      this.setState(prevState => {
-        let oldArr = prevState.todos
-        oldArr[oldId] = {
-          id: oldId,
-          text: oldText,
-          checked: !oldChecked
-        }
-        //alert(JSON.stringify(oldArr))
-
-        return { todos: oldArr }
-      })
-    } else {
-      alert('Nah')
-    }
-
-  }
+      return { todos: oldArr };
+    });
+  };
 
   render() {
-    let renderTodos = this.state.todos.map(element => {
-      return (
-        <span key={element.id}>
-          <input type='checkbox' id={element.id} onChange={() => this.handleCheckbox(element.id, element.checked, element.text)} /> 
-          <label for={element.id} style={element.checked ? {'color': 'red'} : {'color': 'green'} }> {element.text} </label>
-          <i className="fa fa-times-circle" onClick={() => this.handleRemove(element.id)}/> <br />
-        </span>
-      )
-    })
-
+    let renderTodos = this.state.todos.map((element) => {
+      if (element.display) {
+        return (
+          <span key={element.id}>
+            <input
+              type="checkbox"
+              id={element.id}
+              onChange={() =>
+                this.handleCheckbox(element.id, element.checked, element.text, element.display)
+              }
+            />
+            <label
+              for={element.id}
+              style={element.checked ? { 'textDecoration': "line-through" } : { color: "green" }}
+            >
+              {element.text}
+            </label>
+            <i
+              className="fa fa-times-circle"
+              onClick={() => this.handleRemove(element.id, element.checked, element.text, element.display)}
+            />{" "}
+            <br />
+          </span>
+        );
+      }
+      
+    });
 
     return (
       <div>
-        <button onClick={() => alert(JSON.stringify(this.state.todos))}> Todos </button>
+        <button onClick={() => alert(JSON.stringify(this.state.todos))}>
+          Todos
+        </button>
 
         <form onSubmit={this.handleSubmitForm}>
-          <input type='text' ref='newTodo' placeholder='Ex. Do Dishes..' />
-          <button type='submit'> Add </button>
+          <input type="text" ref="newTodo" placeholder="Ex. Do Dishes.." />
+          <button type="submit"> Add </button>
         </form>
 
         {renderTodos}
       </div>
-    )
+    );
   }
 }
 
