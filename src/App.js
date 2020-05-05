@@ -6,13 +6,19 @@ export default class App extends Component {
     this.state = {
       todos: [],
       count: 0,
+      value: ""
     };
+  }
+
+  handleChangeInput = (e) => {
+    this.setState({ value: e.target.value})
   }
 
   handleSubmitForm = (e) => {
     let currentToDo = {
       id: this.state.count,
-      text: this.refs.newTodo.value,
+      //text: this.refs.newTodo.value,
+      text: this.state.value,
       checked: false,
       display: true
     };
@@ -20,6 +26,7 @@ export default class App extends Component {
     this.setState({
       todos: this.state.todos.concat(currentToDo),
       count: this.state.count + 1,
+      value: ""
     });
 
     e.preventDefault();
@@ -90,13 +97,13 @@ export default class App extends Component {
       }
       
     });
-
+    // ref="newTodo"
     return (
       <div className="main-container">
         <h1 className="title"> To Do List </h1>
 
         <form onSubmit={this.handleSubmitForm} className="form">
-          <input className="user-input"  type="text" ref="newTodo" placeholder="Ex. Do Dishes.." required maxLength="20" />
+          <input className="user-input"  type="text" value={this.state.value} onChange={this.handleChangeInput} placeholder="Ex. Do Dishes.." required maxLength="20" />
           <button type="submit"> Add </button>
         </form>
 
