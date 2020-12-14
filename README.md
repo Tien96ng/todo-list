@@ -10,6 +10,6 @@
 - CodeSandBox [CodeSandBox](https://codesandbox.io/?from-app=1)
 
 ### Built with: 
- * HTML(Skeleton)
+ * HTML (Skeleton)
  * CSS (Custom)
  * ReactJS
